@@ -8,7 +8,7 @@ const AUTOSCROLL_INTERVAL = 100;
 const ZINDEX = Platform.OS === 'ios' ? 'zIndex' : 'elevation';
 
 function uniqueRowKey(key) {
-  return `${key}${uniqueRowKey.id}`
+  return `${key}${uniqueRowKey.id}${}`
 }
 
 uniqueRowKey.id = 0
@@ -223,6 +223,7 @@ export default class SortableList extends Component {
       nestedScrollEnabled,
       disableIntervalMomentum,
       keyboardShouldPersistTaps,
+      ...scrollViewProps
     } = this.props;
     const {animated, contentHeight, contentWidth, scrollEnabled} = this.state;
     const containerStyle = StyleSheet.flatten([style, {opacity: Number(animated)}])
@@ -242,6 +243,7 @@ export default class SortableList extends Component {
     return (
       <View style={containerStyle} ref={this._onRefContainer}>
         <ScrollView
+          {...scrollViewProps}
           nestedScrollEnabled={nestedScrollEnabled}
           disableIntervalMomentum={disableIntervalMomentum}
           refreshControl={refreshControl}
